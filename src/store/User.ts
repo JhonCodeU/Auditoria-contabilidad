@@ -1,9 +1,7 @@
-import { config } from '../config';
-import pool from '../db/database';
+import config from '../config';
 import bcrypt from 'bcryptjs';
 import constantes from '../libs/constantes';
-
-const esquema = 'public';
+import prisma from '../db/database';
 
 const encryptPassword = async (password: string) => {
   const salt = await bcrypt.genSalt(10);
@@ -24,12 +22,18 @@ const signUp = async (req: any, res: any) => {
   const hashedPassword = await encryptPassword(clave);
 
   try {
-    const query = `INSERT INTO usuario(usua_idempr, usua_esttra, usua_idsesi, usua_usuari, usua_contra) 
-    VALUES ($1, $2, $3, $4, $5) RETURNING *`;
-    const values = [config.idEmpresa, constantes.Auditoria.AGREGADO, 1, usuario, hashedPassword];
-    const result = await pool.query(query, values);
 
-    return result.rows[0];
+    const newUser = await prisma.usuario.create({
+      data: {
+        usua_idempr: config.idEmpresa,
+        usua_esttra: constantes.Auditoria.AGREGADO,
+        usua_idsesi: 1,
+        usua_usuari: usuario,
+        usua_contra: hashedPassword
+      }
+    });
+
+    return newUser;
   } catch (error) {
     console.log(error);
   }
@@ -45,12 +49,15 @@ const signIn = async (req: any, savedUser: any) => {
 }
 
 const findById = async (usua_idusws: number) => {
-  const query = `SELECT usua_idusws, usua_idempr, usua_esttra, usua_idsesi, usua_usuari FROM ${esquema}.usuario WHERE usua_idusws = $1`;
-  const values = [usua_idusws];
-
   try {
-    const result = await pool.query(query, values);
-    return result.rows[0];
+    const user = await prisma.usuario.findUnique({
+      where: {
+        usua_idusws: usua_idusws
+      }
+    })
+
+    return user;
+
   } catch (error) {
     console.log(error);
   }
@@ -58,16 +65,19 @@ const findById = async (usua_idusws: number) => {
 
 const findByUserName = async (req: any, res: any) => {
   const { usuario } = req.body;
-  const query = `SELECT usua_idusws, usua_idempr, usua_esttra, usua_idsesi, usua_usuari, usua_contra FROM ${esquema}.usuario WHERE usua_usuari = $1`;
-  const values = [usuario];
 
   try {
-    const result = await pool.query(query, values);
-    return result.rows[0];
+    const userFoundByName = await prisma.usuario.findFirst({
+      where: {
+        usua_usuari: usuario
+      }
+    });
+
+    return userFoundByName;
   } catch (error) {
     console.log(error);
   }
-}
+};
 
 export {
   signUp,

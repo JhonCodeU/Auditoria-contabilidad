@@ -2,7 +2,7 @@ import app from './app';
 import colors from 'colors';
 import { specs } from './swagger/config';
 import swaggerUI from 'swagger-ui-express';
-import { config } from './config';
+import config from './config';
 import https from 'https';
 
 const PORT = process.env.PORT || 3000;

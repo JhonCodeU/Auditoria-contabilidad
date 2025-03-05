@@ -1,5 +1,5 @@
 import { signUp as userSignUp, signIn as userSignIn, findByUserName } from '../store/User';
-import { config } from '../config';
+import config from '../config';
 import { success, error } from '../libs/response';
 //import { sessiLogsWebService } from '../store/Logs.js';
 import jwt from 'jsonwebtoken';
@@ -15,8 +15,8 @@ export const signUp = async (req: any, res: any) => {
     const savedUser = await userSignUp(req, res);
 
     const tokenPayload = {
-      id: savedUser.usua_idusws,
-      username: savedUser.usua_usuari
+      id: savedUser?.usua_idusws,
+      username: savedUser?.usua_usuari
     };
 
     const token = jwt.sign(tokenPayload, config.SECRET, config.TOKEN_OPTIONS);
@@ -51,7 +51,7 @@ export const signIn = async (req: any, res: any) => {
       id: userFound.usua_idusws,
       username: userFound.usua_usuari
     };
-    config.USERNAME = userFound.usua_usuari;
+    config.USERNAME = userFound.usua_usuari || '';
 
     const token = jwt.sign(tokenPayload, config.SECRET, config.TOKEN_OPTIONS);
     jwt.verify(token, config.SECRET);

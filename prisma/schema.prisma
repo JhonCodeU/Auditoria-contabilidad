@@ -1,13 +1,13 @@
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["multiSchema"]
+  previewFeatures = ["multiSchema", "postgresqlExtensions", "driverAdapters"]
 }
 
 datasource db {
   provider     = "postgresql"
   url          = env("DATABASE_URL")
   relationMode = "prisma"
-  schemas      = ["aud"]
+  schemas      = ["aud", "public"]
 }
 
 model aud_caja {
@@ -91,4 +91,15 @@ model aud_unidad {
   aud_fkidcaj Int
 
   @@schema("aud")
+}
+
+model usuario {
+  usua_idusws Int     @id @default(autoincrement())
+  usua_idempr Int?
+  usua_esttra String? @db.VarChar(50)
+  usua_idsesi Int?
+  usua_usuari String? @db.VarChar(50)
+  usua_contra String?
+
+  @@schema("public")
 }

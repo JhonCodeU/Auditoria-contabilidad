@@ -1,14 +1,4 @@
-const configDB = [
-  {
-    user: 'usuario01',
-    host: 'localhost',
-    database: 'postgres',
-    password: 'johncode2024*',
-    port: 5432
-  },
-]; 
-
-const config = {
+const config: Config = {
   idEmpresa: 1,
   SECRET: 'auditoria-secret',
   ISLOCALHOST: true,
@@ -18,4 +8,14 @@ const config = {
   },
 };
 
-export { config, configDB };
+interface Config {
+  idEmpresa: number;
+  SECRET: string;
+  ISLOCALHOST: boolean;
+  USERNAME: string;
+  TOKEN_OPTIONS: {
+    expiresIn: number;
+  },
+}
+
+export default config; 
