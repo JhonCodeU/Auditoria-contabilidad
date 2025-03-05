@@ -1,13 +1,14 @@
 ```markdown
 # API REST para la Gestión de Empleados
 
-Esta API RESTful proporciona endpoints para la gestión de empleados y sus solicitudes asociadas. Está construida con Node.js y Express, y se conecta a una base de datos PostgreSQL para almacenar la información de los empleados y sus solicitudes.
+Esta API RESTful proporciona endpoints para la gestión de auditoria contable y sus solicitudes asociadas. Está construida con Node.js y Express, y se conecta a una base de datos PostgreSQL con prisma para almacenar la información de las transacciones.
 
 ## Requisitos
 
 - Node.js
 - TypeScript
 - PostgreSQL
+- Prisma
 - npm (o yarn)
 
 ## Instalación
@@ -15,8 +16,8 @@ Esta API RESTful proporciona endpoints para la gestión de empleados y sus solic
 1. Clona este repositorio en tu máquina local:
 
    ```bash
-   git clone https://github.com/JhonCodeU/konecta-api-empleados.git
-   cd konecta-api-empleados
+   git clone https://github.com/JhonCodeU/Auditoria-contabilidad.git
+   cd Auditoria-contabilidad
    ```
 
 2. Instala las dependencias del proyecto:
@@ -35,9 +36,9 @@ Esta API RESTful proporciona endpoints para la gestión de empleados y sus solic
 
 1. Asegúrate de tener PostgreSQL instalado y corriendo en tu máquina local.
 
-2. Crea una base de datos llamada `posgrest` o `gestion_empleados` en tu servidor PostgreSQL.
+2. Crea una base de datos llamada `posgrest` en tu servidor de AWS.
 
-3. Ejecuta los scripts SQL proporcionados en `src/db/script.sql` para crear las tablas necesarias: `EMPLEADO`, `SOLICITUD`, y `USUARIO`.
+3. Ejecuta los scripts SQL proporcionados en `src/db/script.sql` para crear las tablas necesarias:
 
 4. Asegúrate de tener un usuario y contraseña configurados en PostgreSQL que coincidan con los datos de conexión en el archivo
 
@@ -66,21 +67,6 @@ Esta API RESTful proporciona endpoints para la gestión de empleados y sus solic
 
 - `POST /api/auth/crear_usuario`: Crea un nuevo usuario.
 - `POST /api/auth/generar_token`: Genera un token de acceso para autenticación.
-
-### `/api/v1/employee`
-
-- `GET /api/v1/get_employees`: Obtiene todos los empleados.
-- `GET /api/v1/get_employee/:id`: Obtiene un empleado por su ID.
-- `POST /api/v1/create_employee`: Crea un nuevo empleado.
-
-### `/api/v1/request`
-
-- `GET /api/v1/get_requests?employee_id={id}`: Obtiene las solicitudes de un empleado.
-- `GET /api/v1/get_request/:id`: Obtiene una solicitud por su ID.
-- `GET /api/v1/get_request_by_employee/:id`: Obtiene las solicitudes de un empleado específico.
-- `POST /api/v1/create_request`: Crea una nueva solicitud.
-- `PUT /api/v1/update_request`: Actualiza una solicitud existente.
-- `DELETE /api/v1/delete_request/:id`: Elimina una solicitud por su ID.
 
 ## Documentación (Swagger)
 
@@ -111,6 +97,3 @@ http://localhost:3000/api-docs
 ## Licencia
 
 Este proyecto está bajo la licencia MIT.
-```
-
-Este README.md proporciona una visión general de tu API REST para la gestión de empleados, incluyendo los pasos de instalación, configuración de la base de datos, ejecución, endpoints principales, documentación Swagger, estructura del proyecto, dependencias principales, y detalles adicionales como la configuración del entorno y la contribución al proyecto. Asegúrate de ajustar los detalles específicos como el nombre de la base de datos, usuario y contraseña de PostgreSQL, y el token JWT secreto según tu configuración.
