@@ -1,0 +1,94 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider     = "postgresql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
+  schemas      = ["aud"]
+}
+
+model aud_caja {
+  aud_idcaja  Int       @id @default(autoincrement())
+  aud_numero  String    @db.VarChar(20)
+  aud_nombre  String    @db.VarChar(100)
+  aud_fechac  DateTime  @db.Date
+  aud_fechae  DateTime? @db.Date
+  aud_fkidpai Int
+
+  @@schema("aud")
+}
+
+model aud_credito {
+  aud_idcred  Int     @id @default(autoincrement())
+  aud_porce   Decimal @db.Decimal(5, 2)
+  aud_fkidsoc Int
+  aud_fkidcaj Int
+
+  @@schema("aud")
+}
+
+model aud_movimie {
+  aud_idmovi  Int     @id @default(autoincrement())
+  aud_numero  String  @db.VarChar(20)
+  aud_nombre  String  @db.VarChar(100)
+  aud_detall  String?
+  aud_idreti  Boolean @default(false)
+  aud_fktipom Int
+  aud_fktipoc Int
+  aud_fkidcaj Int
+  aud_fkidpla Int
+
+  @@schema("aud")
+}
+
+model aud_pais {
+  aud_idpais Int    @id @default(autoincrement())
+  aud_nombre String @db.VarChar(100)
+  aud_moneda String @db.VarChar(50)
+
+  @@schema("aud")
+}
+
+model aud_platafo {
+  aud_idplat Int    @id @default(autoincrement())
+  aud_nombre String @db.VarChar(100)
+
+  @@schema("aud")
+}
+
+model aud_socio {
+  aud_idsoci Int      @id @default(autoincrement())
+  aud_nombre String   @db.VarChar(150)
+  aud_paisor Int
+  aud_fechac DateTime @db.Date
+
+  @@schema("aud")
+}
+
+model aud_tipocon {
+  aud_idtcon Int    @id @default(autoincrement())
+  aud_nombre String @db.VarChar(100)
+
+  @@schema("aud")
+}
+
+model aud_tipomov {
+  aud_idtmov Int    @id @default(autoincrement())
+  aud_nombre String @db.VarChar(100)
+
+  @@schema("aud")
+}
+
+model aud_unidad {
+  aud_idunid  Int       @id @default(autoincrement())
+  aud_numero  String    @db.VarChar(20)
+  aud_nombre  String    @db.VarChar(100)
+  aud_fechac  DateTime  @db.Date
+  aud_fechae  DateTime? @db.Date
+  aud_fkidcaj Int
+
+  @@schema("aud")
+}
