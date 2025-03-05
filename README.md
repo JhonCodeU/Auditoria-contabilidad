@@ -1,5 +1,5 @@
 ```markdown
-# API REST para la Gestión de Empleados
+# API REST para la Gestión de Auditoria Contable
 
 Esta API RESTful proporciona endpoints para la gestión de auditoria contable y sus solicitudes asociadas. Está construida con Node.js y Express, y se conecta a una base de datos PostgreSQL con prisma para almacenar la información de las transacciones.
 
