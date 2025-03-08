@@ -1,4 +1,4 @@
-import { config } from '../config';
+import config from '../config';
 import { findById } from '../store/User';
 import { success, error } from '../libs/response';
 import jwt from 'jsonwebtoken';
